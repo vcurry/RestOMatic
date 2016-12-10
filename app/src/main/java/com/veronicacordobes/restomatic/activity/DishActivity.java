@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.veronicacordobes.restomatic.R;
@@ -15,7 +16,9 @@ import com.veronicacordobes.restomatic.model.Dish;
 
 public class DishActivity extends AppCompatActivity implements DishListFragment.OnDishSelectedListener {
 
+    public static final String EXTRA_TABLE_INDEX = "EXTRA_TABLE_INDEX";
 
+    private int tableIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,10 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Carta");
+
+        tableIndex = getIntent().getIntExtra(EXTRA_TABLE_INDEX, 0);
 
         FragmentManager fm = getFragmentManager();
         if (findViewById(R.id.fragment_dish_pager) != null) {
@@ -34,7 +41,6 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
             }
         }
         if(fm.findFragmentById(R.id.fragment_dish_list) == null){
-            DishListFragment dishListFragment = new DishListFragment();
             if (fm.findFragmentById(R.id.fragment_dish_list) == null) {
                 fm.beginTransaction()
                         .add(R.id.fragment_dish_list, new DishListFragment())
@@ -46,8 +52,6 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
 
     @Override
     public void onDishSelected(Dish dish, int position) {
-        Log.v("DishActivity", "Se ha seleccionado el plato " + position);
-
         FragmentManager fm = getFragmentManager();
         DishPagerFragment dishPagerFragment = (DishPagerFragment) fm.findFragmentById(R.id.fragment_dish_pager);
         if(dishPagerFragment != null){
@@ -55,8 +59,22 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
         } else {
             Intent intent = new Intent(this, DishPagerActivity.class);
             intent.putExtra(DishPagerActivity.EXTRA_DISH_INDEX, position);
+            intent.putExtra(DishPagerActivity.EXTRA_TABLE_INDEX, tableIndex);
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean superValue = super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == android.R.id.home) {
+            // Han pulsado la flecha de back de la Actionbar, finalizamos la actividad
+            finish();
+            return true;
+        }
+
+        return superValue;
     }
 }

@@ -6,4 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
+    <string name="carta">Carta</string>
+    <string name="check">Cuenta</string>
+    <string name="totalCheck">Precio total</string>
 </resources>

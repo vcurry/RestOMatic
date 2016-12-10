@@ -17,6 +17,7 @@ import com.veronicacordobes.restomatic.fragment.DishPagerFragment;
 public class DishPagerActivity extends AppCompatActivity{
     public static final String EXTRA_DISH_INDEX = "EXTRA_DISH_INDEX";
 
+    public static final String EXTRA_TABLE_INDEX = "EXTRA_TABLE_INDEX";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,8 @@ public class DishPagerActivity extends AppCompatActivity{
         if(fm.findFragmentById(R.id.fragment_dish_pager) == null){
 
             int dishIndex = getIntent().getIntExtra(EXTRA_DISH_INDEX, 0);
-            DishPagerFragment dishPagerFragment = DishPagerFragment.newInstance(dishIndex);
+            int tableIndex = getIntent().getIntExtra(EXTRA_TABLE_INDEX, 0);
+            DishPagerFragment dishPagerFragment = DishPagerFragment.newInstance(dishIndex, tableIndex);
             fm.beginTransaction()
                     .add(R.id.fragment_dish_pager, dishPagerFragment)
                     .commit();

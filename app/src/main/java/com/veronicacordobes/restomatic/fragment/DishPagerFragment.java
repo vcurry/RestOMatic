@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,13 +19,16 @@ import android.view.ViewGroup;
 import com.veronicacordobes.restomatic.R;
 import com.veronicacordobes.restomatic.model.Dish;
 import com.veronicacordobes.restomatic.model.Menu;
+import com.veronicacordobes.restomatic.model.Table;
+import com.veronicacordobes.restomatic.model.Tables;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DishPagerFragment extends Fragment {
 
-    private static final String ARG_DISH_INDEX = "ARG_DISH INDEX";
+    private static final String ARG_DISH_INDEX = "ARG_DISH_INDEX";
+    private static final String ARG_TABLE_INDEX = "ARG_TABLE_INDEX";
 
     private Menu mMenu;
     private int mInitialDishIndex;
@@ -34,9 +39,10 @@ public class DishPagerFragment extends Fragment {
 
     }
 
-    public static  DishPagerFragment newInstance(int dishIndex){
+    public static  DishPagerFragment newInstance(int dishIndex, int tableIndex){
         Bundle arguments = new Bundle();
         arguments.putInt(ARG_DISH_INDEX, dishIndex);
+        arguments.putInt(ARG_TABLE_INDEX, tableIndex);
         DishPagerFragment dishPagerFragment = new DishPagerFragment();
         dishPagerFragment.setArguments(arguments);
         return dishPagerFragment;
@@ -47,6 +53,14 @@ public class DishPagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+        if (getActivity() instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            ActionBar actionBar = activity.getSupportActionBar();
+
+            if (actionBar != null) {
+                actionBar.setTitle("Platos");
+            }
+        }
 
         if(getArguments() != null){
             mInitialDishIndex = getArguments().getInt(ARG_DISH_INDEX,0);
@@ -70,7 +84,9 @@ public class DishPagerFragment extends Fragment {
             @Override
             protected void onPostExecute(Menu menu) {
                 mMenu = Menu.getInstance();
-                mPager.setAdapter(new DishPagerAdapter(getFragmentManager(),mMenu));
+                Tables tables = Tables.getInstance();
+                Table table = tables.getTable(getArguments().getInt(ARG_TABLE_INDEX,0));
+                mPager.setAdapter(new DishPagerAdapter(getFragmentManager(),mMenu, table));
                 mPager.setCurrentItem(mInitialDishIndex);
             }
         };
@@ -84,6 +100,7 @@ public class DishPagerFragment extends Fragment {
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_pager, menu);
+
     }
 
     public void showDish(int position){
@@ -120,17 +137,18 @@ public class DishPagerFragment extends Fragment {
 class DishPagerAdapter extends FragmentPagerAdapter {
 
     private Menu mMenu;
+    private Table mTable;
 
-    public DishPagerAdapter(FragmentManager fm, Menu menu) {
+    public DishPagerAdapter(FragmentManager fm, Menu menu, Table table) {
         super(fm);
         mMenu = menu;
+        mTable = table;
     }
 
     @Override
     public Fragment getItem(int position) {
         Dish dish = mMenu.getDishes().get(position);
-        DishFragment fragment = DishFragment.newInstance(dish);
-
+        DishFragment fragment = DishFragment.newInstance(dish, mTable);
 
 
         return fragment;

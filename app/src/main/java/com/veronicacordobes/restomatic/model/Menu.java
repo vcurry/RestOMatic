@@ -96,9 +96,35 @@ public class Menu {
                 }
 
                 Dish dish = new Dish(name, description, price, imageResource);
+                Log.v("Menu", dish.getDescription());
                 JSONArray jsonAllergens = jsonDish.getJSONArray("allergens");
                 for (int allergenIndex = 0; allergenIndex < jsonAllergens.length(); allergenIndex++){
-                    dish.addAllergen(jsonAllergens.getJSONObject(allergenIndex).getString("allergen"));
+                    int allergenInt = jsonAllergens.getJSONObject(allergenIndex).getInt("allergen");
+                    int allergenResource = R.drawable.pulley;
+                    switch (allergenInt){
+                        case 10:
+                            allergenResource = R.drawable.bone;
+                            break;
+                        case 11:
+                            allergenResource = R.drawable.rubber;
+                            break;
+                        case 12:
+                            allergenResource = R.drawable.pulley;
+                            break;
+                        case 13:
+                            allergenResource = R.drawable.fish;
+                            break;
+                        case 14:
+                            allergenResource = R.drawable.cinnamon;
+                            break;
+                        case 15:
+                            allergenResource = R.drawable.pflegm;
+                            break;
+                        case 16:
+                            allergenResource = R.drawable.cracker;
+                            break;
+                    }
+                    dish.addAllergen(allergenResource);
                 }
 
                 menu.mDishes.add(dish);

@@ -13,7 +13,7 @@ public class Dish implements Serializable{
     private String mDescription = null;
     private int mPrice = 0;
     private int mImage = 0;
-    private List<String> mAllergens = new LinkedList<>();
+    private List<Integer> mAllergens = new LinkedList<>();
     private String mSpecialOrder = null;
 
     public Dish(String name, String description, int price, int image) {
@@ -59,7 +59,7 @@ public class Dish implements Serializable{
         mImage = image;
     }
 
-    public void addAllergen(String allergen){
+    public void addAllergen(int allergen){
         mAllergens.add(allergen);
     }
 
@@ -67,7 +67,7 @@ public class Dish implements Serializable{
         return  mAllergens.size();
     }
 
-    public String getAllergen(int index){
+    public int getAllergen(int index){
         return mAllergens.get(index);
     }
 
