@@ -1,8 +1,12 @@
+/*
 package com.veronicacordobes.restomatic.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +21,7 @@ import com.veronicacordobes.restomatic.model.Tables;
 
 public class TableFragment extends Fragment {
 
-
+    private RecyclerView mList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +38,11 @@ public class TableFragment extends Fragment {
                 table.getDishes()
         );
 
+
+
         return root;
 
 
     }
 }
+*/

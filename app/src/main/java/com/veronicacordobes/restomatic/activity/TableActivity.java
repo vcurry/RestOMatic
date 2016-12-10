@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.veronicacordobes.restomatic.R;
+import com.veronicacordobes.restomatic.TableRecyclerViewAdapter;
 import com.veronicacordobes.restomatic.model.Dish;
 import com.veronicacordobes.restomatic.model.Table;
 import com.veronicacordobes.restomatic.model.Tables;
@@ -21,6 +25,8 @@ public class TableActivity extends AppCompatActivity {
     public static final String EXTRA_TABLE_INDEX = "EXTRA_TABLE_INDEX";
     private int tableIndex;
     private Table mTable;
+
+    private RecyclerView mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,7 @@ public class TableActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ListView list = (ListView) findViewById(R.id.activity_table);
+
 
         Tables tables = Tables.getInstance();
         tableIndex = getIntent().getIntExtra(EXTRA_TABLE_INDEX, 0);
@@ -39,9 +45,12 @@ public class TableActivity extends AppCompatActivity {
 
         mTable = tables.getTable(tableIndex);
 
-        ArrayAdapter<Dish> adapter = new ArrayAdapter<Dish>(this, android.R.layout.simple_list_item_1, mTable.getDishes());
+        mList = (RecyclerView) findViewById(android.R.id.list);
+        mList.setLayoutManager(new LinearLayoutManager(this));
+        mList.setItemAnimator(new DefaultItemAnimator());
+        Log.v("TableActivity", "Número de platos " + mTable.getDishes().size());
+        mList.setAdapter(new TableRecyclerViewAdapter(mTable.getDishes(), this));
 
-        list.setAdapter(adapter);
     }
 
     @Override
@@ -84,7 +93,8 @@ public class TableActivity extends AppCompatActivity {
             alertDialog.show();
             return true;
         } else if (item.getItemId() == android.R.id.home) {
-            finish();
+            Intent intent = new Intent(this, TablesListActivity.class);
+            startActivity(intent);
             return true;
         }
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="80dp"
+        app:srcCompat="@drawable/chicken_with_a_pulley"
+        android:id="@+id/dish_image"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/dish_image"
+        android:id="@+id/dish_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dish_price"
+        android:layout_below="@+id/dish_name"
+        android:layout_toRightOf="@+id/dish_image"
+        android:layout_toEndOf="@+id/dish_image"
+        android:layout_marginLeft="30dp"/>
+
+    <ImageView
+        android:layout_below="@+id/dish_price"
+        android:layout_toRightOf="@+id/dish_image"
+        android:layout_toEndOf="@+id/dish_image"
+        android:id="@+id/allergen_image_1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/dish_price"
+        android:layout_toRightOf="@+id/allergen_image_1"
+        android:layout_toEndOf="@+id/allergen_image_1"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:id="@+id/allergen_image_2"/>
+
+</RelativeLayout>
