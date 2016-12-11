@@ -48,7 +48,7 @@ public class TableActivity extends AppCompatActivity {
         mList = (RecyclerView) findViewById(android.R.id.list);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mList.setItemAnimator(new DefaultItemAnimator());
-        Log.v("TableActivity", "Número de platos " + mTable.getDishes().size());
+
         mList.setAdapter(new TableRecyclerViewAdapter(mTable.getDishes(), this));
 
     }

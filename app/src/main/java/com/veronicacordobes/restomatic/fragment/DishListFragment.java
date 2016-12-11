@@ -55,7 +55,6 @@ public class DishListFragment extends Fragment{
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        Log.v("DishListFragment", "Se ha seleccionado el plato " + position);
                         if (mOnDishSelectedListener != null) {
                             mOnDishSelectedListener.onDishSelected(menu.getDish(position), position);
                         }

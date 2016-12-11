@@ -106,7 +106,6 @@ public class DishFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         if(mSpecialOrder.getText().toString() != ""){
-            Log.v("DishFragment", mSpecialOrder.getText().toString());
             mDish.setSpecialOrder(mSpecialOrder.getText().toString());
         }
 

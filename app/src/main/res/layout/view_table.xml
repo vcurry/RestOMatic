@@ -23,14 +23,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dish_image"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="30dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/dish_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Pollo con polea"/>
 
                 <TextView

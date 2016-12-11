@@ -33,10 +33,15 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
         tableIndex = getIntent().getIntExtra(EXTRA_TABLE_INDEX, 0);
 
         FragmentManager fm = getFragmentManager();
+
         if (findViewById(R.id.fragment_dish_pager) != null) {
             if (fm.findFragmentById(R.id.fragment_dish_pager) == null) {
+                DishPagerFragment dishPagerFragment = new DishPagerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("ARG_TABLE_INDEX", tableIndex);
+                dishPagerFragment.setArguments(bundle);
                 fm.beginTransaction()
-                        .add(R.id.fragment_dish_pager, new DishPagerFragment())
+                        .add(R.id.fragment_dish_pager, dishPagerFragment)
                         .commit();
             }
         }

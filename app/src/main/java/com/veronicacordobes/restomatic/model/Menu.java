@@ -21,7 +21,6 @@ public class Menu {
     private LinkedList<Dish> mDishes;
 
     public static Menu getInstance(){
-        Log.v("Menu", "entramos en getInstance");
         if(sInstance == null){
             try {
                 sInstance = downloadMenu();
@@ -37,7 +36,6 @@ public class Menu {
     private static Menu downloadMenu() throws IOException, JSONException {
         Menu menu = new Menu();
         menu.mDishes = new LinkedList<>();
-        Log.v("Menu", "entramos en download");
         URLConnection conn = new URL("http://www.mocky.io/v2/5847d7c43f0000c62cfe6a31").openConnection();
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder response = new StringBuilder();
@@ -96,7 +94,6 @@ public class Menu {
                 }
 
                 Dish dish = new Dish(name, description, price, imageResource);
-                Log.v("Menu", dish.getDescription());
                 JSONArray jsonAllergens = jsonDish.getJSONArray("allergens");
                 for (int allergenIndex = 0; allergenIndex < jsonAllergens.length(); allergenIndex++){
                     int allergenInt = jsonAllergens.getJSONObject(allergenIndex).getInt("allergen");
