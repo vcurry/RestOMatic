@@ -10,6 +10,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ public class DishPagerFragment extends Fragment {
 
     private Menu mMenu;
     private int mInitialDishIndex;
+    private Table mTable;
     private ViewPager mPager;
 
 
@@ -64,6 +66,8 @@ public class DishPagerFragment extends Fragment {
 
         if(getArguments() != null){
             mInitialDishIndex = getArguments().getInt(ARG_DISH_INDEX,0);
+            Tables tables = Tables.getInstance();
+            mTable = tables.getTable(getArguments().getInt(ARG_TABLE_INDEX,0));
         }
     }
 
@@ -84,14 +88,13 @@ public class DishPagerFragment extends Fragment {
             @Override
             protected void onPostExecute(Menu menu) {
                 mMenu = Menu.getInstance();
-                Tables tables = Tables.getInstance();
-                Table table = tables.getTable(getArguments().getInt(ARG_TABLE_INDEX,0));
-                mPager.setAdapter(new DishPagerAdapter(getFragmentManager(),mMenu, table));
+                mPager.setAdapter(new DishPagerAdapter(getFragmentManager(),mMenu, mTable));
                 mPager.setCurrentItem(mInitialDishIndex);
             }
         };
 
         menuDownloader.execute();
+
 
         return root;
     }
@@ -128,8 +131,6 @@ public class DishPagerFragment extends Fragment {
         MenuItem menuPrev = menu.findItem(R.id.previous);
         MenuItem menuNext = menu.findItem(R.id.next);
 
-        menuPrev.setEnabled(mPager.getCurrentItem() > 0);
-        menuNext.setEnabled(mPager.getCurrentItem() < mMenu.getCount() - 1);
     }
 }
 
@@ -149,8 +150,6 @@ class DishPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Dish dish = mMenu.getDishes().get(position);
         DishFragment fragment = DishFragment.newInstance(dish, mTable);
-
-
         return fragment;
     }
 

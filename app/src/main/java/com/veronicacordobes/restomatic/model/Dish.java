@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by veronicacordobes on 28/11/16.
- */
-
 public class Dish implements Serializable{
     private String mName = null;
     private String mDescription = null;

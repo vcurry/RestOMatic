@@ -70,12 +70,11 @@ public class DishFragment extends Fragment implements View.OnClickListener {
         Button orderDishButton = (Button) root.findViewById(R.id.button_order_dish);
         orderDishButton.setOnClickListener(this);
 
-        //Saco el modelo de los arguments
         if (getArguments() != null) {
             mDish = (Dish) getArguments().getSerializable(ARG_DISH);
+            mTable = (Table) getArguments().getSerializable(ARG_TABLE);
         }
 
-        //Accedo a las vistas de la interfaz
         mDishName = (TextView) root.findViewById(R.id.dish_name);
         mDishDescription = (TextView) root.findViewById(R.id.dish_description);
         mPrice = (TextView) root.findViewById(R.id.dish_price);
@@ -84,7 +83,6 @@ public class DishFragment extends Fragment implements View.OnClickListener {
         mDishAllergen1 = (ImageView) root.findViewById(R.id.allergen_image_1);
         mDishAllergen2 = (ImageView) root.findViewById(R.id.allergen_image_2);
 
-        //Actualizo la interfaz con el modelo
         setDish(mDish);
 
 

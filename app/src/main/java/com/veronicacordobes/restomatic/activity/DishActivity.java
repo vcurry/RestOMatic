@@ -41,6 +41,7 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
             }
         }
         if(fm.findFragmentById(R.id.fragment_dish_list) == null){
+
             if (fm.findFragmentById(R.id.fragment_dish_list) == null) {
                 fm.beginTransaction()
                         .add(R.id.fragment_dish_list, new DishListFragment())
@@ -70,7 +71,6 @@ public class DishActivity extends AppCompatActivity implements DishListFragment.
         boolean superValue = super.onOptionsItemSelected(item);
 
         if (item.getItemId() == android.R.id.home) {
-            // Han pulsado la flecha de back de la Actionbar, finalizamos la actividad
             finish();
             return true;
         }

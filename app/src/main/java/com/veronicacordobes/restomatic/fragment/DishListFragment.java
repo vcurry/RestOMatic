@@ -34,7 +34,7 @@ public class DishListFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
 
         final View root = inflater.inflate(R.layout.fragment_dish_list, container, false);
-        //Accedemos al ListView
+
         final ListView list = (ListView) root.findViewById(android.R.id.list);
 
         AsyncTask<Void, Void, Menu> menuDownloader = new AsyncTask<Void, Void, Menu>() {
@@ -45,15 +45,13 @@ public class DishListFragment extends Fragment{
 
             @Override
             protected void onPostExecute(final Menu menu) {
-                //Creamos el adaptador
+
                 DishListAdapter adapter = new DishListAdapter(
                         getActivity(),
                         menu.getDishes());
 
-                //Asignamos el adaptador a la lista
                 list.setAdapter(adapter);
 
-                //Asignamos el listener
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
